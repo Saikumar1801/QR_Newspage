@@ -64,4 +64,3 @@ http://localhost/QRAlliymi_website-main/News/index.html
 
 ---
 
-Let me know if you also want a Korean version of this README or need to generate a GitHub-style `README.md` file directly.
