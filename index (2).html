@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+    <title>QR 알리미 소식</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=NanumSquare:wght@300;400;700;800&display=swap" />
+    <style>
+      /* --- GLOBAL & MAIN PAGE STYLES --- */
+      body {
+        margin: 0;
+        line-height: normal;
+        font-family: 'NanumSquare', sans-serif;
+      }
+      .div {
+        width: 100%;
+        position: relative;
+        background-color: #fff;
+        height: 1080px;
+        overflow: hidden;
+        text-align: left;
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.5);
+      }
+      .image-1857-icon {
+        position: absolute;
+        top: 220px;
+        left: calc(50% - 960px);
+        width: 1920px;
+        height: 666px;
+        object-fit: cover;
+      }
+
+      /* --- HEADER CSS --- */
+      .header {
+        position: relative;
+        background-color: #fff;
+        border-bottom: 1px solid #dcdcdc;
+        box-sizing: border-box;
+        width: 100%;
+        height: 64px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        text-align: left;
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.5);
+        font-family: NanumSquare;
+        z-index: 10;
+      }
+      .header-inner {
+        width: 1240px;
+        height: 64px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0px;
+      }
+      .symbol-icon { width: 26.2px; position: relative; height: 26.2px; }
+      .logo-bold { width: 65.5px; position: relative; height: 22.3px; }
+      .symbol-parent {
+        width: 96.8px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0px;
+      }
+      .text {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+      }
+      .headermenu {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+      .div2 { position: relative; line-height: 20px; font-weight: 300; }
+      .faq { position: relative; line-height: 20px; }
+      .headermenu1 {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+      .headermenu2 {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+      .headermenu-parent {
+        width: 439px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0px;
+      }
+      .header1 {
+        position: relative;
+        background-color: rgba(0, 0, 0, 0.85);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+        width: 100%;
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        text-align: left;
+        font-size: 16px;
+        color: #fff;
+        font-family: NanumSquare;
+        z-index: 10;
+      }
+      .header-child {
+        width: 1240px;
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;margin-right: 140px;
+      }
+      .frame-wrapper {
+        width: auto;
+      }
+      .parent2 {
+        align-self: stretch;
+        width: 439px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0px;
+      }
+      
+      /* --- UNIFIED NAVIGATION STYLING (NEW) --- */
+      .nav-link {
+        font-weight: 800; /* Bold */
+        color: grey;      /* Default color */
+        line-height: 20px;
+      }
+      .nav-link.active-black {
+        color: black;
+      }
+      .nav-link.active-yellow {
+        color: #fae100;
+      }
+      /* --- END OF NEW CSS --- */
+      
+      /* Main Content: Title & Cards */
+      .title-parent {
+        position: absolute;
+        top: calc(50% - 426px);
+        left: calc(50% - 620px);
+        width: 1240px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 64px 0px 0px;
+        box-sizing: border-box;
+        gap: 100px;
+        font-size: 30px;
+        color: #000;
+      }
+      .title { display: flex; align-items: center; gap: 20px; }
+      .icon-megaphone { width: 40px; height: 40px; }
+      .qr { line-height: 140%; font-weight: 800; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); }
+      .card { align-self: stretch; display: flex; justify-content: center; }
+      .icon-left-parent { flex: 1; display: flex; align-items: center; justify-content: space-between; }
+      .icon-left, .icon-right { 
+        width: 51.1px; 
+        height: 51.1px; 
+        cursor: pointer;
+        z-index: 5;
+      }
+
+      /* Carousel Styles */
+      .group {
+        width: 1100px;
+        overflow: hidden;
+      }
+      .cards-container-inner {
+        display: flex;
+        gap: 33px;
+        transition: transform 0.5s ease-in-out;
+      }
+      .news-card {
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.2s, opacity 0.2s;
+        cursor: pointer;
+        line-height: 0;
+        width: 250px;
+        flex-shrink: 0;
+      }
+      .news-card:hover {
+        opacity: 0.85;
+        transform: translateY(-5px);
+      }
+      .news-card img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      
+      /* Footer */
+      .footer {
+        position: absolute;
+        bottom: 0px;
+        left: calc(50% - 960px);
+        background-color: #fff;
+        width: 1920px;
+        height: 194px;
+        font-size: 13px;
+        color: rgba(0, 0, 0, 0.85);
+      }
+      .footer-inner {
+        width: 100%;
+        border-top: 1px solid #dcdcdc;
+        display: flex;
+        justify-content: center;
+      }
+      .footer .frame-parent {
+        width: 1240px;
+        display: flex;
+        padding: 50px 0px;
+        box-sizing: border-box;
+        gap: 21px;
+      }
+      .footer .frame-group { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+      .footer .frame-container { display: flex; flex-direction: column; gap: 8px; }
+      .e-jejecommsgmailcom { position: relative; }
+      .footer .wrapper { border-right: 1px solid #b9b9b9; padding-right: 16px; }
+      .footer .frame { border-right: 1px solid #b9b9b9; padding: 0px 16px; }
+      .footer .wrapper1 { padding: 0px 16px; }
+      .t-070-4252-5571-parent { display: flex; gap: 24px; }
+      .parent1 { display: flex; gap: 24px; font-size: 15px; color: #222; }
+
+      /* Popup Styles */
+      .frame-parent1 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.6);
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 50px 0px;
+        box-sizing: border-box;
+        z-index: 100;
+      }
+      .frame-wrapper1 {
+        background-color: #fff;
+        padding: 30px;
+        z-index: 101;
+        border-radius: 0px;
+        position: relative;
+        max-width: 800px;
+        width: 90%;
+      }
+      .parent5 {
+        max-height: 85vh;
+        overflow-y: auto;
+      }
+      #popup-content-image {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .frame-item {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 20px;
+        right: 300px;
+        z-index: 102;
+        cursor: pointer;
+      }
+
+      /* Button Styles */
+      .text-button {
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+        font: inherit;
+        color: inherit;
+        cursor: pointer;
+        text-align: inherit;
+        transition: opacity 0.2s ease;
+      }
+      .text-button:hover {
+        opacity: 0.7;
+      }
+      .text-button.active {
+        cursor: default;
+      }
+      .text-button.active:hover {
+        opacity: 1;
+      }
+
+    </style>
+</head>
+<body>
+    <div class="div">
+        <img class="image-1857-icon" alt="Background banner" src="./News_Images/background.png">
+
+        <div class="header">
+            <div class="header-inner">
+                 <div class="text">
+                    <div class="symbol-parent">
+                        <img class="symbol-icon" alt="Symbol" src="./News_Images/symbol.png">
+                        <img class="logo-bold" alt="Logo" src="./News_Images/qr_alliym_name.png">
+                    </div>
+                </div>
+                <div class="headermenu-parent">
+                    <!-- ITEMS BELOW ARE MODIFIED -->
+                    <div class="headermenu"><div class="text"><button class="text-button"><span class="nav-link">QR알리미란?</span></button></div></div>
+                    <div class="div2">|</div>
+                    <div class="headermenu1"><div class="text"><button class="text-button"><span class="nav-link">QR알리미 사용하기</span></button></div></div>
+                    <div class="div2">|</div>
+                    <div class="headermenu2"><div class="text"><button class="text-button"><span class="nav-link active-black">커뮤니티</span></button></div></div>
+                    <div class="div2">|</div>
+                    <div class="headermenu1"><div class="text"><button class="text-button"><span class="nav-link">B2B</span></button></div></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="header1">
+            <div class="header-child">
+                <div class="frame-wrapper">
+                    <div class="parent2">
+                        <!-- ITEMS BELOW ARE MODIFIED -->
+                        <button class="text-button"><b class="faq">리뷰</b></button>
+                        <button class="text-button"><b class="faq">쿠폰 네비게이션</b></button>
+                        <button class="text-button"><b class="faq">FAQ</b></button>
+                        <button class="text-button"><b class="faq">문의하기</b></button>
+                        <button class="text-button active"><span class="nav-link active-yellow">소식</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title-parent">
+            <!-- ... rest of your content remains unchanged ... -->
+            <div class="title">
+                <img class="icon-megaphone" alt="Megaphone Icon" src="./News_Images/icon_megaphone.png">
+                <div class="qr">QR알리미 소식</div>
+            </div>
+            <div class="card">
+                <div class="icon-left-parent">
+                    <img class="icon-left" alt="Left Arrow" src="./News_Images/Left.svg">
+                    <div class="group">
+                        <div class="cards-container-inner">
+                            <div class="news-card" data-popup-image="./News_Images/Pop1.png"><img src="./News_Images/소식1.png" alt="News: 2023 사우디아라비아 타이프 투자포럼 참가"></div>
+                            <div class="news-card" data-popup-image="./News_Images/Pop2.png"><img src="./News_Images/소식2.png" alt="News: QR알리미 와디즈 크라우드펀딩 2차펀딩 Start"></div>
+                            <div class="news-card" data-popup-image="./News_Images/Pop3.png"><img src="./News_Images/소식3.png" alt="News: (주)제제컴즈, 2023 SWEX 참가"></div>
+                            <div class="news-card" data-popup-image="./News_Images/Pop4.png"><img src="./News_Images/소식4.png" alt="News: (주)제제컴즈, 사우디아라비아 타이프시티 플랫폼 개발사업 3차 발표"></div>
+                            <div class="news-card" data-popup-image="./News_Images/Pop5.png"><img src="./News_Images/소식5.png" alt="News: Card 5"></div>
+                            <div class="news-card" data-popup-image="./News_Images/Pop6.png"><img src="./News_Images/소식6.png" alt="News: Card 6"></div>
+                            <div class="news-card" data-popup-image="./News_Images/Pop7.png"><img src="./News_Images/소식7.png" alt="News: Card 7"></div>
+                            <div class="news-card" data-popup-image="./News_Images/Pop8.png"><img src="./News_Images/소식8.png" alt="News: Card 8"></div>
+                            <div class="news-card" data-popup-image="./News_Images/Pop9.png"><img src="./News_Images/소식9.png" alt="News: Card 9"></div>
+                            <div class="news-card" data-popup-image="./News_Images/Pop10.png"><img src="./News_Images/소식10.png" alt="News: Card 10"></div>
+                            <div class="news-card" data-popup-image="./News_Images/Pop11.png"><img src="./News_Images/소식11.png" alt="News: Card 11"></div>
+                        </div>
+                    </div>
+                    <img class="icon-right" alt="Right Arrow" src="./News_Images/Right.svg">
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <!-- ... rest of your content remains unchanged ... -->
+            <div class="footer-inner">
+                <div class="frame-parent">
+                    <div class="frame-group">
+                        <div class="frame-container">
+                            <div class="headermenu1">
+                                <div class="wrapper"><div class="e-jejecommsgmailcom">(주)제제컴즈</div></div>
+                                <div class="frame"><div class="e-jejecommsgmailcom">대표자 : 김준강</div></div>
+                                <div class="wrapper1"><div class="e-jejecommsgmailcom">사업자등록번호 : 641-88-00828</div></div>
+                            </div>
+                            <div class="headermenu1"><div class="e-jejecommsgmailcom">통신판매업신고 : 제2021-성남수정-1335호</div></div>
+                            <div class="e-jejecommsgmailcom">13449 경기 성남시 수정구 달래내로 46, 성남글로벌융합센터 A동 405호</div>
+                        </div>
+                        <div class="t-070-4252-5571-parent">
+                            <div class="e-jejecommsgmailcom">T. 070-4252-5571</div>
+                            <div class="e-jejecommsgmailcom">E. jejecomms@gmail.com</div>
+                            <div class="e-jejecommsgmailcom">F. 0508-910-5575</div>
+                        </div>
+                    </div>
+                    <div class="parent1">
+                        <b class="e-jejecommsgmailcom">회사소개</b>
+                        <b class="e-jejecommsgmailcom">이용약관</b>
+                        <b class="e-jejecommsgmailcom">개인정보처리방침</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="frame-parent1" id="news-popup" style="display: none;">
+            <div class="frame-wrapper1">
+                <div class="parent5">
+                    <img id="popup-content-image" src="" alt="News Details">
+                </div>
+            </div>
+            <img class="frame-item" id="close-popup-btn" alt="Close button" src="./News_Images/Close_round.png">
+        </div>
+    </div>
+
+    <script>
+        // Your script remains unchanged
+        document.addEventListener('DOMContentLoaded', function() {
+            const newsCards = document.querySelectorAll('.news-card');
+            const popup = document.getElementById('news-popup');
+            const closeBtn = document.getElementById('close-popup-btn');
+            const popupImage = document.getElementById('popup-content-image');
+            const popupContentBox = document.querySelector('.frame-wrapper1');
+
+            const closePopup = () => {
+                popup.style.display = 'none';
+                popupImage.src = ''; 
+            };
+
+            newsCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const imageSrc = card.getAttribute('data-popup-image');
+                    if (imageSrc) {
+                        popupImage.src = imageSrc;
+                        popup.style.display = 'flex';
+                    }
+                });
+            });
+
+            closeBtn.addEventListener('click', closePopup);
+
+            popup.addEventListener('click', function(event) {
+                if (event.target === popup) {
+                    closePopup();
+                }
+            });
+
+            const track = document.querySelector('.cards-container-inner');
+            const cards = document.querySelectorAll('.news-card');
+            const leftButton = document.querySelector('.icon-left');
+            const rightButton = document.querySelector('.icon-right');
+
+            const cardWidth = 250;
+            const gap = 33;
+            const step = cardWidth + gap;
+            
+            const totalCards = cards.length;
+            const visibleCards = 4;
+            const maxIndex = totalCards - visibleCards; 
+            
+            let currentIndex = 0;
+
+            const moveToSlide = (index) => {
+                track.style.transform = `translateX(-${index * step}px)`;
+            };
+
+            rightButton.addEventListener('click', () => {
+                currentIndex++;
+                if (currentIndex > maxIndex) {
+                    currentIndex = 0;
+                }
+                moveToSlide(currentIndex);
+            });
+
+            leftButton.addEventListener('click', () => {
+                currentIndex--;
+                if (currentIndex < 0) {
+                    currentIndex = maxIndex;
+                }
+                moveToSlide(currentIndex);
+            });
+        });
+    </script>
+</body>
+</html>
